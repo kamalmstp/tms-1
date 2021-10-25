@@ -6,8 +6,8 @@
         <!-- Icons -->
         <!-- The following icons can be replaced with your own, they are used by desktop and mobile browsers -->
         <link rel="shortcut icon" href="assets/media/favicons/favicon.png">
-        <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('asset/backend_asset/assets/media/favicons/favicon-192x192.png')}}">
-        <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('asset/backend_asset/assets/media/favicons/apple-touch-icon-180x180.png')}}">
+        <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('asset/backend_asset/assets/media/favicons/bus.svg')}}">
+        <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('asset/backend_asset/assets/media/favicons/bus.svg')}}">
         <!-- END Icons -->
         <!-- Stylesheets -->
         <!-- Fonts and Codebase framework -->
@@ -20,14 +20,13 @@
             <!-- Main Container -->
             <main id="main-container">
                 <!-- Page Content -->
-                <div class="bg-image bg-pattern" style="background-image: url('/asset/backend_asset/assets/media/photos/photo34@2x.jpg');">
+                <div class="bg-image bg-pattern" style="background-image: url('/asset/backend_asset/assets/media/favicons/bus.svg');">
                     <div class="row mx-0 justify-content-center bg-white-op-95">
                         <div class="hero-static col-lg-6 col-xl-4">
                             <div class="content content-full overflow-hidden">
                                 <!-- Header -->
                                 <div class="py-30 text-center">
-                                    <a class="link-effect text-pulse font-w700" href="index.html">
-                                        <i class="si si-fire"></i>
+                                    <a class="link-effect text-pulse font-w700" href="javascript::void(0)">
                                         <span class="font-size-xl text-pulse-dark">Transprotation</span><span class="font-size-xl"> (Admin Panel)</span>
                                     </a>
                                     <h2 class="h5 font-w400 text-muted mb-0">Please Enter Your E-mail & Password</h2>
@@ -45,7 +44,7 @@
                                         </div>
                                         <div class="block-content">
                                             <div class="form-group text-center">
-                                                <img class="img-avatar img-avatar96" src="{{ asset('asset/backend_asset/assets/media/avatars/avatar15.jpg')}}" alt="">
+                                                <img class="img-avatar img-avatar96" src="{{ asset('asset/backend_asset/assets/media/favicons/bus.svg')}}" alt="">
                                             </div>
                                             <div class="form-group row">
                                                 <div class="col-12">
