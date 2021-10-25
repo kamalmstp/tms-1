@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 
-        <title>Transprotation Admin Panel</title>
+        <title>Transportation || Admin</title>
 
         <meta name="description" content="Global Visa Solution (GVS)">
         <meta name="author" content="GVS">
@@ -20,108 +20,112 @@
 
         <!-- Icons -->
         <!-- The following icons can be replaced with your own, they are used by desktop and mobile browsers -->
-        <link rel="shortcut icon" href="{{ asset('asset/backend_asset/assets/media/favicons/favicon.png')}}">
-        <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('asset/backend_asset/assets/media/favicons/favicon-192x192.png')}}">
-        <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('asset/backend_asset/assets/media/favicons/apple-touch-icon-180x180.png')}}">
+        <link rel="shortcut icon" href="{{ asset('asset/backend_asset/assets/media/favicons/bus.svg')}}">
+        <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('asset/backend_asset/assets/media/favicons/bus.svg')}}">
+        <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('asset/backend_asset/assets/media/favicons/bus.svg')}}">
         <!-- END Icons -->
 
         <!-- Stylesheets -->
         <!-- Fonts and Codebase framework -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,400i,600,700&display=swap">
         <link rel="stylesheet" id="css-main" href="{{ asset('asset/backend_asset/assets/css/codebase.min.css')}}">
-
-        <!-- You can include a specific file from css/themes/ folder to alter the default color theme of the template. eg: -->
-        <!-- <link rel="stylesheet" id="css-theme" href="assets/css/themes/flat.min.css"> -->
+        <link rel="stylesheet" href="{{ asset('asset/toastr.min.css')}}">
+        <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
+        <style type="text/css">
+            .single-filed{
+                margin: auto;
+            }
+            .toast-success {
+                background-color: #266525 !important;
+                opacity: 1;
+            }
+            .table thead th {
+                 text-transform: capitalize;
+            }
+            @media screen and (min-width: 999px) {
+              .table-responsive {
+                overflow-x: clip;
+              }
+            }
+            #page-container.page-header-fixed #main-container {
+                padding-top: 100px;
+            }
+        </style>
         <!-- END Stylesheets -->
     </head>
     <body>
-
         <!-- Page Container -->
-        <!--
-            Available classes for #page-container:
-
-        GENERIC
-
-            'enable-cookies'                            Remembers active color theme between pages (when set through color theme helper Template._uiHandleTheme())
-
-        SIDEBAR & SIDE OVERLAY
-
-            'sidebar-r'                                 Right Sidebar and left Side Overlay (default is left Sidebar and right Side Overlay)
-            'sidebar-mini'                              Mini hoverable Sidebar (screen width > 991px)
-            'sidebar-o'                                 Visible Sidebar by default (screen width > 991px)
-            'sidebar-o-xs'                              Visible Sidebar by default (screen width < 992px)
-            'sidebar-inverse'                           Dark themed sidebar
-
-            'side-overlay-hover'                        Hoverable Side Overlay (screen width > 991px)
-            'side-overlay-o'                            Visible Side Overlay by default
-
-            'enable-page-overlay'                       Enables a visible clickable Page Overlay (closes Side Overlay on click) when Side Overlay opens
-
-            'side-scroll'                               Enables custom scrolling on Sidebar and Side Overlay instead of native scrolling (screen width > 991px)
-
-        HEADER
-
-            ''                                          Static Header if no class is added
-            'page-header-fixed'                         Fixed Header
-
-        HEADER STYLE
-
-            ''                                          Classic Header style if no class is added
-            'page-header-modern'                        Modern Header style
-            'page-header-inverse'                       Dark themed Header (works only with classic Header style)
-            'page-header-glass'                         Light themed Header with transparency by default
-                                                        (absolute position, perfect for light images underneath - solid light background on scroll if the Header is also set as fixed)
-            'page-header-glass page-header-inverse'     Dark themed Header with transparency by default
-                                                        (absolute position, perfect for dark images underneath - solid dark background on scroll if the Header is also set as fixed)
-
-        MAIN CONTENT LAYOUT
-
-            ''                                          Full width Main Content if no class is added
-            'main-content-boxed'                        Full width Main Content with a specific maximum width (screen width > 1200px)
-            'main-content-narrow'                       Full width Main Content with a percentage width (screen width > 1200px)
-        -->
         <div id="page-container" class="sidebar-o sidebar-inverse enable-page-overlay side-scroll page-header-fixed main-content-narrow">
 
             @include('backend.layouts.sideoverflow')
             @include('backend.layouts.sidebar')
             @include('backend.layouts.header')
+            <!-- Main Container -->
+            <main id="main-container">
             @yield('content')
+            </main>
+            <!-- END Main Container -->
             @include('backend.layouts.footer')
 
         </div>
         <!-- END Page Container -->
+        <script src="{{ asset('asset/toastr.min.js')}}"></script>
+        <script src="http://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+        <script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
 
-        <!--
-            Codebase JS Core
+        <script>
+          @if(Session::has('message'))
+          toastr.options =
+          {
+            "closeButton" : true,
+            "progressBar" : true
+          }
+                toastr.success("{{ session('message') }}");
+          @endif
 
-            Vital libraries and plugins used in all pages. You can choose to not include this file if you would like
-            to handle those dependencies through webpack. Please check out assets/_es6/main/bootstrap.js for more info.
+          @if(Session::has('error'))
+          toastr.options =
+          {
+            "closeButton" : true,
+            "progressBar" : true
+          }
+                toastr.error("{{ session('error') }}");
+          @endif
 
-            If you like, you could also include them separately directly from the assets/js/core folder in the following
-            order. That can come in handy if you would like to include a few of them (eg jQuery) from a CDN.
+          @if(Session::has('info'))
+          toastr.options =
+          {
+            "closeButton" : true,
+            "progressBar" : true
+          }
+                toastr.info("{{ session('info') }}");
+          @endif
 
-            assets/js/core/jquery.min.js
-            assets/js/core/bootstrap.bundle.min.js
-            assets/js/core/simplebar.min.js
-            assets/js/core/jquery-scrollLock.min.js
-            assets/js/core/jquery.appear.min.js
-            assets/js/core/jquery.countTo.min.js
-            assets/js/core/js.cookie.min.js
-        -->
+          @if(Session::has('warning'))
+          toastr.options =
+          {
+            "closeButton" : true,
+            "progressBar" : true
+          }
+                toastr.warning("{{ session('warning') }}");
+          @endif
+        </script>
         <script src="{{ asset('asset/backend_asset/assets/js/codebase.core.min.js')}}"></script>
-
-        <!--
-            Codebase JS
-
-            Custom functionality including Blocks/Layout API as well as other vital and optional helpers
-            webpack is putting everything together at assets/_es6/main/app.js
-        -->
         <script src="{{ asset('asset/backend_asset/assets/js/codebase.app.min.js')}}"></script>
-
-        <!-- Page JS Plugins -->
-        <script src="{{ asset('asset/backend_asset/assets/js/plugins/chartjs/Chart.bundle.min.js')}}"></script>
-
+        <script src="{{ asset('asset/backend_asset/assets/js/plugins/datatables/jquery.dataTables.min.js')}}"></script>
+        <script src="{{ asset('asset/backend_asset/assets/js/plugins/datatables/dataTables.bootstrap4.min.js')}}"></script>
+         <script src="{{ asset('asset/backend_asset/assets/js/plugins/jquery-validation/jquery.validate.min.js')}}"></script>
         <!-- Page JS Code -->
+        <script src="{{ asset('asset/backend_asset/assets/js/pages/be_tables_datatables.min.js')}}"></script>
+        <script>
+            jQuery(function(){ Codebase.helpers('select2'); });
+        </script>
+        <script src="{{ asset('ckeditor/ckeditor.js')}}"></script>
+        <script>
+            CKEDITOR.replace('editor');
+        </script>
+        @yield('script')
+        <script src="{{ asset('asset/backend_asset/assets/js/plugins/chartjs/Chart.bundle.min.js')}}"></script>
         <script src="{{ asset('asset/backend_asset/assets/js/pages/be_pages_dashboard.min.js')}}"></script>
     </body>
 </html>
