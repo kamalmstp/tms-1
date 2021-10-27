@@ -25,6 +25,7 @@ use App\Http\Controllers\ExpenseCategoryController;
 use App\Http\Controllers\PolicePaymentMainController;
 use App\Http\Controllers\PolicePaymentSubController;
 use App\Http\Controllers\ExpenseController;
+use App\Http\Controllers\TotalCashController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +36,9 @@ Auth::routes();
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard')->middleware('auth');
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('/all-ammount/{id}', [DataGetController::class, 'ammount']);
+    Route::get('/police-payment/{id}', [DataGetController::class, 'policemain']);
+    Route::get('/police-payment-sub/{id}', [DataGetController::class, 'policesub']);
+
     Route::get('expense-category/list', [ExpenseCategoryController::class, 'index'])->name('expense-category.list');
     $date = (date('Y-m-d'));
     Route::get('/bus-list/{id}/{date}', [DataGetController::class, 'buses']);
@@ -125,5 +129,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
         Route::get('/list', [ExpenseController::class, 'index'])->name('expense.list');
         Route::get('create', [ExpenseController::class, 'create'])->name('expense.create');
         Route::post('store', [ExpenseController::class, 'store'])->name('expense.store');
+    });
+    Route::group(['prefix' => 'adjust-collection'], function () {
+        Route::get('/list', [TotalCashController::class, 'index'])->name('adjust-collection.list');
+        Route::get('create', [TotalCashController::class, 'create'])->name('adjust-collection.create');
+        Route::post('store', [TotalCashController::class, 'store'])->name('adjust-collection.store');
     });
 });

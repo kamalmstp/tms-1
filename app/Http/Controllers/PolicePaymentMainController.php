@@ -16,7 +16,7 @@ class PolicePaymentMainController extends Controller
      */
     public function index()
     {
-        $ppmain = PolicePaymentMain::paginate();
+        $ppmain = PolicePaymentMain::get();
         return view('backend.file.ppmain.list', compact('ppmain'));
     }
 

@@ -16,7 +16,7 @@ class PolicePaymentSubController extends Controller
      */
     public function index()
     {
-        $ppsub = PolicePaymentSub::paginate();
+        $ppsub = PolicePaymentSub::get();
         return view('backend.file.ppsub.list', compact('ppsub'));
     }
 

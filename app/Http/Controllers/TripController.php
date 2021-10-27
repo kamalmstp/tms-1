@@ -15,7 +15,7 @@ class TripController extends Controller
      */
     public function index()
     {
-        $trips = Trip::orderBy('id','desc')->paginate();
+        $trips = Trip::orderBy('id','desc')->get();
         return view('backend.file.trip.list', compact('trips'));
     }
 

@@ -15,7 +15,7 @@ class BusController extends Controller
      */
     public function index()
     {
-        $buses = Bus::orderBy('id','desc')->paginate();
+        $buses = Bus::orderBy('id','desc')->get();
         return view('backend.file.bus.list', compact('buses'));
     }
 

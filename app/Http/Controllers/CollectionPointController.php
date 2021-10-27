@@ -15,7 +15,7 @@ class CollectionPointController extends Controller
      */
     public function index()
     {
-        $collections = CollectionPoint::orderBy('id','desc')->paginate();
+        $collections = CollectionPoint::orderBy('id','desc')->get();
         return view('backend.file.collection-point.list', compact('collections'));
     }
 

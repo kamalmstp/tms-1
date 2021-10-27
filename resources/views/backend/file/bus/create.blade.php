@@ -20,8 +20,26 @@
 	                        <div class="form-group row">
 	                            <label class="col-12" for="example-autocomplete1">Bus Code: <span class="text-danger">*</span></label>
 	                            <div class="col-lg-12">
-	                                <input type="text" class="js-autocomplete form-control" name="bus_code" id="example-autocomplete1" placeholder="ex: DH-202212">
+	                                <input type="text" class="js-autocomplete form-control" name="bus_code" id="example-autocomplete1" placeholder="ex: xx-xxxx">
 	                                @error('bus_code')
+			                            <span class="text-danger">{{ $message }}</span>
+			                        @enderror
+	                            </div>
+	                        </div>
+	                        <div class="form-group row">
+	                            <label class="col-12" for="example-autocomplete1">Bus Owner Name: <span class="text-danger">*</span></label>
+	                            <div class="col-lg-12">
+	                                <input type="text" class="js-autocomplete form-control" name="bus_owner_name" id="example-autocomplete1" placeholder="Bus Owner Name...">
+	                                @error('bus_owner_name')
+			                            <span class="text-danger">{{ $message }}</span>
+			                        @enderror
+	                            </div>
+	                        </div>
+	                        <div class="form-group row">
+	                            <label class="col-12" for="example-autocomplete1">Bus Owner Phone Number: <span class="text-danger">*</span></label>
+	                            <div class="col-lg-12">
+	                                <input type="text" class="js-autocomplete form-control" name="phone" id="example-autocomplete1" placeholder="01xxxxxxxxx">
+	                                @error('phone')
 			                            <span class="text-danger">{{ $message }}</span>
 			                        @enderror
 	                            </div>

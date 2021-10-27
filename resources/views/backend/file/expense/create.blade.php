@@ -19,29 +19,28 @@
 	                    	@csrf
 	                    	<div class="col-md-12">
 	                    		<div class="row">
-	                    			<div class="col-md-12 col-12 text-center p-2">
+
+	                    			<div class="col-md-4 col-12">
 	                    				<div class="form-group row">
+				                            <label class="col-12" for="example-autocomplete1">Expense Category: <span class="text-danger">*</span></label>
 				                            <div class="col-12">
-				                            	<?php
-				                            		$showdate = (date('d-m-Y'));
-													$date = (date('Y-m-d'));
-													?>
-													<label for="example-autocomplete1">Today Date: </label>
-													<b>{{$showdate}}</b>
-													<input type="hidden" id="date" name="date" value="{{$date}}">
-													<?php
-												?>
+				                                <select class="form-control" required="" id="expense_cat_id" name="expense_category_id" onchange="getPolicePaymentMain()">
+                                                    <option value="">Please select</option>
+                                                    @foreach($ex_category as $data)
+                                                    <option value="{{$data->id}}">{{$data->expense_category_name}}</option>
+                                                    @endforeach
+                                                </select>
 				                            </div>
 				                        </div>
 	                    			</div>
 	                    			<div class="col-md-4 col-12">
 	                    				<div class="form-group row">
-				                            <label class="col-12" for="example-autocomplete1">Expense Category: <span class="text-danger">*</span></label>
+				                            <label class="col-12" for="example-autocomplete1">Zone:</label>
 				                            <div class="col-12">
-				                                <select class="form-control" required="" id="example-select" name="expense_category_id">
+				                                <select class="form-control" name="zone_id">
                                                     <option value="">Please select</option>
-                                                    @foreach($ex_category as $data)
-                                                    <option value="{{$data->id}}">{{$data->expense_category_name}}</option>
+                                                    @foreach($zone as $data)
+                                                    <option value="{{$data->id}}">{{$data->zone_name}}</option>
                                                     @endforeach
                                                 </select>
 				                            </div>
@@ -51,11 +50,8 @@
 	                    				<div class="form-group row">
 				                            <label class="col-12" for="example-autocomplete1">Police Payment Main Sector: <span class="text-danger">*</span></label>
 				                            <div class="col-12">
-				                                <select class="form-control" id="example-select" name="main_sector_id">
-                                                    <option value="0">Please select</option>
-                                                    <option value="1">Option #1</option>
-                                                    <option value="2">Option #2</option>
-                                                    <option value="3">Option #3</option>
+				                                <select class="form-control" id="police_payment_main_id" name="main_sector_id" onchange="getPolicePaymentSub()">
+                                                    <option value="">Please select</option>
                                                 </select>
 				                            </div>
 				                        </div>
@@ -64,31 +60,24 @@
 	                    				<div class="form-group row">
 				                            <label class="col-12" for="example-autocomplete1">Police Payment Sub Sector: <span class="text-danger">*</span></label>
 				                            <div class="col-12">
-				                                <select class="form-control" id="example-select" name="sub_sector_id">
-                                                    <option value="0">Please select</option>
-                                                    <option value="1">Option #1</option>
-                                                    <option value="2">Option #2</option>
-                                                    <option value="3">Option #3</option>
+				                                <select class="form-control" id="sub_sector_id" name="sub_sector_id">
+                                                    <option value="">Please select</option>
                                                 </select>
 				                            </div>
 				                        </div>
 	                    			</div>
-	                    		</div>
-	                    	</div>
-	                    	<div class="col-md-12">
-	                    		<div class="row">
-	                    			<div class="col-md-6 col-12">
+	                    			<div class="col-md-4 col-12">
 	                    				<div class="form-group row">
-				                            <label class="col-12" for="example-autocomplete1">Expense Resone: <span class="text-danger">*</span></label>
+				                            <label class="col-12" for="example-autocomplete1">Expense Reason: <span class="text-danger">*</span></label>
 				                            <div class="col-lg-12">
-				                                <input type="text" class="js-autocomplete form-control" name="expense_resone" id="example-autocomplete1" placeholder="Expense Resone...">
+				                                <input type="text" class="js-autocomplete form-control" name="expense_resone" id="example-autocomplete1" placeholder="Expense Reason...">
 				                                @error('expense_resone')
 						                            <span class="text-danger">{{ $message }}</span>
 						                        @enderror
 				                            </div>
 				                        </div>
 	                    			</div>
-	                    			<div class="col-md-6 col-12">
+	                    			<div class="col-md-4 col-12">
 	                    				<div class="form-group row">
 				                            <label class="col-12" for="example-autocomplete1">Expense Ammount: <span class="text-danger">*</span></label>
 				                            <div class="col-lg-12">
@@ -114,10 +103,31 @@
 </div>
 @endsection
 @section('script')
-<!-- <script type="text/javascript">
-	function getAmmount(){
-	    let id = $("#collection_point_id").val();
-	    let url = '/admin/all-ammount/'+id;
+<script type="text/javascript">
+	function getPolicePaymentMain(){
+	    let id = $("#expense_cat_id").val();
+	    let url = '/admin/police-payment/'+id;
+	    $.ajax({
+	        type: "get",
+	        url: url,
+	        dataType: "json",
+	        success: function (response) {
+	            let html = '';
+	            html+='<option>'+'Please select'+'</option>'
+	            // console.log(response)
+	            response.forEach(element => {
+	                html+='<option value='+element.id+'>'+element.sector_name+'</option>'
+	            });
+	            $("#police_payment_main_id").html(html);
+	        }
+	    });
+	}
+</script>
+
+<script type="text/javascript">
+	function getPolicePaymentSub(){
+	    let id = $("#police_payment_main_id").val();
+	    let url = '/admin/police-payment-sub/'+id;
 	    $.ajax({
 	        type: "get",
 	        url: url,
@@ -126,11 +136,11 @@
 	            let html = '';
 	            // console.log(response)
 	            response.forEach(element => {
-	                html+='<option value='+element.id+'>'+element.ammounts+'</option>'
+	                html+='<option value='+element.id+'>'+element.sub_sector_name+'</option>'
 	            });
-	            $("#ammount_id").html(html);
+	            $("#sub_sector_id").html(html);
 	        }
 	    });
 	}
-</script> -->
+</script>
 @endsection

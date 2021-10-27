@@ -151,6 +151,17 @@
                         </li>
                     </ul>
                 </li>
+                <li>
+                    <a class="nav-submenu" data-toggle="nav-submenu" href="javascript::void(0)"><i class="fa fa-money"></i><span class="sidebar-mini-hide">Total Cash</span></a>
+                    <ul>
+                        <li>
+                            <a href="{{route('adjust-collection.create')}}">Daily Cash Calculate</a>
+                        </li>
+                        <li>
+                            <a href="{{route('adjust-collection.list')}}">Daily Cash Calculate List</a>
+                        </li>
+                    </ul>
+                </li>
                 <li class="nav-main-heading"><span class="sidebar-mini-visible">E.M</span><span class="sidebar-mini-hidden">Expense Module</span></li>
                 <li>
                     <a class="nav-submenu" data-toggle="nav-submenu" href="javascript::void(0)"><i class="fa fa-search-plus"></i><span class="sidebar-mini-hide">Zone</span></a>

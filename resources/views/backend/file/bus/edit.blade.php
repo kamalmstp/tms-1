@@ -26,6 +26,24 @@
 			                        @enderror
 	                            </div>
 	                        </div>
+	                        <div class="form-group row">
+	                            <label class="col-12" for="example-autocomplete1">Bus Owner Name: <span class="text-danger">*</span></label>
+	                            <div class="col-lg-12">
+	                                <input type="text" class="js-autocomplete form-control" value="{{$bus->bus_owner_name}}" name="bus_owner_name" id="example-autocomplete1" placeholder="Bus Owner Name...">
+	                                @error('bus_owner_name')
+			                            <span class="text-danger">{{ $message }}</span>
+			                        @enderror
+	                            </div>
+	                        </div>
+	                        <div class="form-group row">
+	                            <label class="col-12" for="example-autocomplete1">Bus Owner Phone Number: <span class="text-danger">*</span></label>
+	                            <div class="col-lg-12">
+	                                <input type="text" class="js-autocomplete form-control" value="{{$bus->phone}}" name="phone" id="example-autocomplete1" placeholder="01xxxxxxxxx">
+	                                @error('phone')
+			                            <span class="text-danger">{{ $message }}</span>
+			                        @enderror
+	                            </div>
+	                        </div>
 
 	                        <div class="form-group text-right">
 	                            <button type="submit" class="btn btn-square btn-primary min-width-125 mb-10 mt-20">Submit</button>

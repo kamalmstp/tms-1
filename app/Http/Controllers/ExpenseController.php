@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Expense;
 use App\Models\ExpenseCategory;
+use App\Models\Zone;
 use Illuminate\Http\Request;
+use App\Http\Requests\ExpenseRequest;
 
 class ExpenseController extends Controller
 {
@@ -15,7 +17,8 @@ class ExpenseController extends Controller
      */
     public function index()
     {
-        //
+        $expenses = Expense::get();
+        return view('backend.file.expense.list', compact('expenses'));
     }
 
     /**
@@ -26,7 +29,8 @@ class ExpenseController extends Controller
     public function create()
     {
         $ex_category = ExpenseCategory::get();
-        return view('backend.file.expense.create',compact('ex_category'));
+        $zone = Zone::get();
+        return view('backend.file.expense.create',compact('ex_category','zone'));
     }
 
     /**
@@ -35,9 +39,17 @@ class ExpenseController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ExpenseRequest $request)
     {
-        //
+        // dd($request->all());
+        $type = new Expense();
+        $requested_data = $request->all();
+        $save = $type->fill($requested_data)->save();
+        if($save){
+            return redirect()->route('expense.list')->with('message','Expense Added Successfully');
+        }else{
+            return back()->with('error','Expense Added Failed!!');;
+        }
     }
 
     /**
