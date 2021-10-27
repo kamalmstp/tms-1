@@ -15,7 +15,7 @@ class UserTypeController extends Controller
      */
     public function index()
     {
-        $types = UserType::orderBy('id','desc')->paginate();
+        $types = UserType::orderBy('id','desc')->get();
         return view('backend.file.user-type.list', compact('types'));
     }
 

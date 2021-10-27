@@ -16,7 +16,7 @@ class AmmountController extends Controller
      */
     public function index()
     {
-        $ammounts = Ammount::orderBy('id','desc')->paginate();
+        $ammounts = Ammount::orderBy('id','desc')->get();
         return view('backend.file.ammount.list', compact('ammounts'));
     }
 

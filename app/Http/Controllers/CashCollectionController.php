@@ -18,7 +18,7 @@ class CashCollectionController extends Controller
      */
     public function index()
     {
-        $collections = CashCollection::orderBy('id','desc')->paginate();
+        $collections = CashCollection::orderBy('id','desc')->get();
         return view('backend.file.cash-collection.list', compact('collections'));
     }
 

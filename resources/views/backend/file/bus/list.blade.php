@@ -15,7 +15,8 @@
 	                    <tr>
 	                        <th class="text-center">S/L &nbsp;</th>
 	                        <th class="text-center">Bus Code &nbsp;</th>
-	                        <th class="text-center">Root &nbsp;</th>
+	                        <th class="text-center">Bus Owner &nbsp;</th>
+	                        <th class="text-center">Owner Phone Number&nbsp;</th>
 	                        <th class="text-center">Status &nbsp;</th>
 	                        <th class="text-center">Action &nbsp;</th>
 	                    </tr>
@@ -26,7 +27,9 @@
 	                	<tr>
 	                		<td class="text-center">{{$sl++}}</td>
 		                	<td class="text-center">{{$bus->bus_code}}</td>
-		                	<td class="text-center">যাত্রাবাড়ী থেকে পোস্তগোলা</td>
+		                	<!-- <td class="text-center">যাত্রাবাড়ী থেকে পোস্তগোলা</td> -->
+		                	<td class="text-center">{{$bus->bus_owner_name}}</td>
+		                	<td class="text-center">{{$bus->phone}}</td>
 		                	<td class="text-center">
 		                		@if($bus->status == 1)
 		                			<span class="badge badge-success">Active</span>

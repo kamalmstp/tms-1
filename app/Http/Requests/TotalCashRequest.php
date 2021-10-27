@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ExpenseRequest extends FormRequest
+class TotalCashRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,7 @@ class ExpenseRequest extends FormRequest
     public function rules()
     {
         return [
-            'expense_resone'   => 'required',
-            'ammounts'   => 'required',
+            'minus_gp_ammount' => 'required'
         ];
     }
 }

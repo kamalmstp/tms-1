@@ -15,7 +15,7 @@ class ZoneController extends Controller
      */
     public function index()
     {
-        $zones = Zone::orderBy('id','desc')->paginate();
+        $zones = Zone::orderBy('id','desc')->get();
         return view('backend.file.zone.list', compact('zones'));
     }
 
