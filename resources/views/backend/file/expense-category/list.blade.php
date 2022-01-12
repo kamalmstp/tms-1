@@ -4,6 +4,11 @@
 	<div class="block">
 	    <div class="block-header block-header-default">
 	        <h3 class="block-title"><b>Expense Category Table</b></h3>
+	        <div class="block-options">
+            	<a href="{{route('expense-category.create')}}" class="btn btn-sm btn-alt-primary">
+		            <i class="fa fa-plus mr-5"></i>Add Expense Category
+		        </a>
+            </div>
 	    </div>
 	    <div class="block-content block-content-full">
 	    	<div class="table-responsive">
@@ -12,6 +17,7 @@
 	                    <tr>
 	                        <th class="text-center">S/L &nbsp;</th>
 	                        <th class="text-center">Expense Category &nbsp;</th>
+	                        <th class="text-center">Action &nbsp;</th>
 	                    </tr>
 	                </thead>
 	                <tbody>
@@ -20,6 +26,19 @@
 	                	<tr>
 	                		<td class="text-center">{{$sl++}}</td>
 		                	<td class="text-center">{{$data->expense_category_name}}</td>
+		                	<td class="text-center icon-statte">
+	                            <form action="{{route('expense-category.delete',$data->id)}}" method="post" accept-charset="utf-8">
+
+			                		<a href="{{route('expense-category.edit',$data->id)}}" class="btn btn-circle btn-alt-info mr-5 mb-5">
+		                                <i class="fa fa-edit"></i>
+		                            </a>
+	                                @csrf
+	                                @method('delete')
+	    	                    	<button type="submit" class="btn btn-circle btn-alt-danger mr-5 mb-5 delete-confirm">
+		                                <i class="fa fa-trash-o"></i>
+		                            </button>
+	                            </form>
+		                	</td>
 	                	</tr>
 	                	@endforeach
 	                </tbody>

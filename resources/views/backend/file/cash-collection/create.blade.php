@@ -1,5 +1,36 @@
 @extends('backend.layouts.app')
 @section('content')
+<style type="text/css">
+	.side-buttons {
+	    position: fixed;
+	    right: 2px;
+	    top: 50%;
+	    transform: translateY(-50%);
+	    display: block;
+	    background-color: #ddd;
+	    text-align: center;
+	}
+	.count-bus{
+		height: auto;
+	}
+	.count-span {
+	    background-color: #1a3a46;
+	    padding: 5px;
+	}
+	.count-span span{
+		color: #fff;
+    	font-weight: 600;
+	}
+	.count-strong{
+		padding: 3px;
+	}
+	.count-strong strong{
+		font-weight: 800;
+	    font-size: 15px;
+	    color: #1a195a;
+	}
+	
+</style>
 <div class="container">
 	<div class="col-xl-12 single-filed">
 		<div class="block">
@@ -22,15 +53,10 @@
 	                    			<div class="col-12 col-md-12 text-center p-2">
 	                    				<div class="form-group row">
 				                            <div class="col-12">
-				                            	<?php
-				                            		$showdate = (date('d-m-Y'));
-													$date = (date('Y-m-d'));
-													?>
-													<label for="example-autocomplete1">Today Date: </label>
-													<b>{{$showdate}}</b>
-													<input type="hidden" id="date" name="date" value="{{$date}}">
-													<?php
-												?>
+				                            	
+												<label for="example-autocomplete1">Date Selection: </label>
+												<input type="date" required name="date" id="collection_date">
+
 				                            </div>
 				                        </div>
 	                    			</div>
@@ -38,8 +64,8 @@
 	                    				<div class="form-group row">
 				                            <label class="col-12" for="example-autocomplete1">Trip Name: <span class="text-danger">*</span></label>
 				                            <div class="col-12">
-				                                <select class="form-control" id="example-select" name="trip_id" required="">
-				                                	<option>Please select</option>
+				                                <select class="form-control" id="trip_id" name="trip_id" required="" onclick="getBusTrip()">
+				                                	<option value="">Please select</option>
 				                                	@foreach($trip as $data)
 			                                        <option value="{{$data->id}}">{{$data->trip_name}}</option>
 			                                        @endforeach
@@ -50,12 +76,12 @@
 				                            </div>
 				                        </div>
 	                    			</div>
-	                    			<div class="col-12 col-md-4">
+	                    			<div class="col-12 col-md-4" id="collection_id">
 	                    				<div class="form-group row">
 				                            <label class="col-12" for="example-autocomplete1">Collection Point Name: <span class="text-danger">*</span></label>
 				                            <div class="col-12">
-				                                <select class="form-control" id="collection_point_id" name="collection_point_id" required="" onclick="getBus()">
-			                                        <option>Please select</option>
+				                                <select class="form-control" id="collection_point_id" name="collection_point_id" onclick="getBus()">
+			                                        <option value="">Please select</option>
 			                                        @foreach($point as $data)
 			                                        <option value="{{$data->id}}">{{$data->collection_point_name}}</option>
 			                                        @endforeach
@@ -66,12 +92,12 @@
 				                            </div>
 				                        </div>
 	                    			</div>
-	                    			<div class="col-12 col-md-4">
+	                    			<div class="col-12 col-md-4" id="ammount">
 	                    				<div class="form-group row">
 				                            <label class="col-12" for="example-autocomplete1">Ammount: <span class="text-danger">*</span></label>
 				                            <div class="col-12">
-				                                <select class="form-control" id="ammount_id" name="ammount_id" required="">
-			                                        <option>Please select</option>
+				                                <select class="form-control" id="ammount_id" name="ammount_id">
+			                                        <option value="">Please select</option>
 			                                    </select>
 			                                    @error('ammount_id')
 						                            <span class="text-danger">{{ $message }}</span>
@@ -102,8 +128,63 @@
 	    </div>
 	</div>
 </div>
+
+<div class="side-buttons">
+	<div class="count-bus">
+		<div class="count-span">
+			<span>Count Bus</span>
+		</div>
+		<div class="count-strong">
+			<strong id="count_id">0</strong>
+		</div>
+	</div>
+</div>
+
+<!-- <input   type="radio" onchange="checkboxes()">
+ -->
+
 @endsection
 @section('script')
+
+<script type="text/javascript">
+	function getBusTrip() {
+		// alert('hi');
+		let id = $("#trip_id").val();
+		let  date = document.getElementById('collection_date').value
+		var x = document.getElementById('buses_id');
+		if (id == 3 || id == 4) {
+			x.style.display = 'flex';
+			document.getElementById('collection_id').style.display = 'none';
+			document.getElementById('ammount').style.display = 'none';
+			let url = '/admin/trip-bus-list/'+id+'/'+date;
+		    $.ajax({
+		        type: "get",
+		        url: url,
+		        dataType: "json",
+		        success: function (response) {
+		            var html = '';
+		            html+='<label class="col-12">Select Bus: <span class="text-danger">*</span></label>'
+		            console.log(response)
+		            response.forEach(element => {
+		                html+=`<div class="col-md-2 col-4 box-size">
+	                		<div class="custom-control custom-checkbox custom-control-inline mb-5">
+	                            <input class="custom-control-input" type="checkbox" name="bus_id[]" id=`+element.id+` value=`+element.id+`>
+	                            <label class="custom-control-label" for=`+element.id+`>`+element.bus_code+`</label>
+	                        </div>
+	                	</div>`
+		            });
+		            $("#buses_id").html(html);
+		        }
+		    });
+		}else{
+			// document.getElementById("buses_id").style.display = "none";
+			x.style.display = 'none';
+			document.getElementById('collection_id').style.display = 'flex';
+			document.getElementById('ammount').style.display = 'flex';
+		}
+	}
+</script>
+
 <script type="text/javascript">
 	function getAmmount(){
 	    let id = $("#collection_point_id").val();
@@ -127,9 +208,10 @@
 
 <script type="text/javascript">
 	function getBus(){
-		let  date = document.getElementById('date').value
+		let  date = document.getElementById('collection_date').value
 	    let id = $("#collection_point_id").val();
 	    let url = '/admin/bus-list/'+id+'/'+date;
+	    document.getElementById('buses_id').style.display = 'flex';
 	    $.ajax({
 	        type: "get",
 	        url: url,
@@ -139,9 +221,9 @@
 	            html+='<label class="col-12">Select Bus: <span class="text-danger">*</span></label>'
 	            console.log(response)
 	            response.forEach(element => {
-	                html+=`<div class="col-md-2 col-4">
+	                html+=`<div class="col-md-2 col-4 box-size">
                 		<div class="custom-control custom-checkbox custom-control-inline mb-5">
-                            <input class="custom-control-input" type="checkbox" name="bus_id[]" id=`+element.id+` value=`+element.id+`>
+                            <input class="custom-control-input" type="checkbox" name="bus_id[]" id=`+element.id+` value=`+element.id+` onclick="checkboxes()">
                             <label class="custom-control-label" for=`+element.id+`>`+element.bus_code+`</label>
                         </div>
                 	</div>`
@@ -151,6 +233,19 @@
 	    });
 	    getAmmount();
 	}
+</script>
+
+<script type="text/javascript">
+	function checkboxes(){
+	    var inputElems = document.getElementsByTagName("input"),
+	    count = 0;
+	    for (var i=0; i<inputElems.length; i++) {
+	    if (inputElems[i].type === "checkbox" && inputElems[i].checked === true){
+	        count++;
+	    }
+	    console.log(count);
+	    $("#count_id").html(count);
+	}}
 </script>
 
 @endsection

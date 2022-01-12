@@ -17,7 +17,7 @@ class ExpenseController extends Controller
      */
     public function index()
     {
-        $expenses = Expense::get();
+        $expenses = Expense::orderBy('id','desc')->get();
         return view('backend.file.expense.list', compact('expenses'));
     }
 

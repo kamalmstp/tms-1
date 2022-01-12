@@ -50,6 +50,9 @@
             #page-container.page-header-fixed #main-container {
                 padding-top: 100px;
             }
+            .box-size{
+                padding: 10px;
+            }
         </style>
         <!-- END Stylesheets -->
     </head>

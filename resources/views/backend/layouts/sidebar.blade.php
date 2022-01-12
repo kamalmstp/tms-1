@@ -155,13 +155,33 @@
                     <a class="nav-submenu" data-toggle="nav-submenu" href="javascript::void(0)"><i class="fa fa-money"></i><span class="sidebar-mini-hide">Total Cash</span></a>
                     <ul>
                         <li>
-                            <a href="{{route('adjust-collection.create')}}">Daily Cash Calculate</a>
+                            <a href="{{route('adjust-collection.create')}}">Total Cash Calculate (This Month)</a>
                         </li>
                         <li>
-                            <a href="{{route('adjust-collection.list')}}">Daily Cash Calculate List</a>
+                            <a href="{{route('adjust-collection.list')}}">Total Cash Calculate List (This Month)</a>
                         </li>
                     </ul>
                 </li>
+
+                <li class="nav-main-heading"><span class="sidebar-mini-visible">R</span><span class="sidebar-mini-hidden">Report</span></li>
+                <li>
+                    <a class="nav-submenu" data-toggle="nav-submenu" href="javascript::void(0)"><i class="fa fa-bar-chart"></i><span class="sidebar-mini-hide">Information Report</span></a>
+                    <ul>
+                        <li>
+                            <a href="{{route('report.cash-collection')}}">Cash Collection Buses Report</a>
+                        </li>
+                        <li>
+                            <a href="{{route('cash-collection.without-cash-collection')}}">Without Cash Collection Buses Report</a>
+                        </li>
+                        <li>
+                            <a href="{{route('report.total-cash')}}">Total Cash Report</a>
+                        </li>
+                        <li>
+                            <a href="{{route('report.expense')}}">Expense Report</a>
+                        </li>
+                    </ul>
+                </li>
+
                 <li class="nav-main-heading"><span class="sidebar-mini-visible">E.M</span><span class="sidebar-mini-hidden">Expense Module</span></li>
                 <li>
                     <a class="nav-submenu" data-toggle="nav-submenu" href="javascript::void(0)"><i class="fa fa-search-plus"></i><span class="sidebar-mini-hide">Zone</span></a>
@@ -174,9 +194,19 @@
                         </li>
                     </ul>
                 </li>
+
                 <li>
-                    <a href="{{route('expense-category.list')}}"><i class="fa fa-list-ul"></i><span class="sidebar-mini-hide">Expense Categories List</span></a>
+                    <a class="nav-submenu" data-toggle="nav-submenu" href="javascript::void(0)"><i class="fa fa-list-ul"></i><span class="sidebar-mini-hide">Expense Category</span></a>
+                    <ul>
+                        <li>
+                            <a href="{{route('expense-category.create')}}">Add Expense Category</a>
+                        </li>
+                        <li>
+                            <a href="{{route('expense-category.list')}}">Expense Categories List</a>
+                        </li>
+                    </ul>
                 </li>
+
                 <li>
                     <a class="nav-submenu" data-toggle="nav-submenu" href="javascript::void(0)"><i class="fa fa-outdent"></i><span class="sidebar-mini-hide">Police Payment Main Sector</span></a>
                     <ul>

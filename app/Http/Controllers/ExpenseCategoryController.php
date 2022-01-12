@@ -25,7 +25,7 @@ class ExpenseCategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('backend.file.expense-category.create');
     }
 
     /**
@@ -36,7 +36,14 @@ class ExpenseCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $expense = new ExpenseCategory();
+        $requested_data = $request->all();
+        $save = $expense->fill($requested_data)->save();
+        if($save){
+            return redirect()->route('expense-category.list')->with('message','Expense Category Added Successfully');
+        }else{
+            return back()->with('error','Expense Category Added Failed!!');;
+        }
     }
 
     /**
@@ -56,11 +63,11 @@ class ExpenseCategoryController extends Controller
      * @param  \App\Models\ExpenseCategory  $expenseCategory
      * @return \Illuminate\Http\Response
      */
-    public function edit(ExpenseCategory $expenseCategory)
+    public function edit($id)
     {
-        //
+        $expense = ExpenseCategory::where('id',$id)->first();
+        return view('backend.file.expense-category.edit',compact('expense'));
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -68,9 +75,16 @@ class ExpenseCategoryController extends Controller
      * @param  \App\Models\ExpenseCategory  $expenseCategory
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ExpenseCategory $expenseCategory)
+    public function update(Request $request, $id)
     {
-        //
+        $update = ExpenseCategory::findOrFail($id);
+        $formData = $request->all();
+        $updated = $update->fill($formData)->save();
+        if($updated){
+            return redirect()->route('expense-category.list')->with('message','Expense Category Updated Successfully');
+        }else{
+            return back()->with('error',' Expense Category Updated Failed');
+        }
     }
 
     /**
@@ -79,8 +93,9 @@ class ExpenseCategoryController extends Controller
      * @param  \App\Models\ExpenseCategory  $expenseCategory
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ExpenseCategory $expenseCategory)
+    public function destroy($id)
     {
-        //
+        $delete = ExpenseCategory::where('id', $id)->firstorfail()->delete();
+        return back()->with('message','Data Successfully Deleted');
     }
 }

@@ -33,7 +33,7 @@
 				                            </div>
 				                        </div>
 	                    			</div>
-	                    			<div class="col-md-4 col-12">
+	                    			<div class="col-md-4 col-12" id="zone">
 	                    				<div class="form-group row">
 				                            <label class="col-12" for="example-autocomplete1">Zone:</label>
 				                            <div class="col-12">
@@ -46,7 +46,7 @@
 				                            </div>
 				                        </div>
 	                    			</div>
-	                    			<div class="col-md-4 col12">
+	                    			<div class="col-md-4 col-12" id="police_main_sector">
 	                    				<div class="form-group row">
 				                            <label class="col-12" for="example-autocomplete1">Police Payment Main Sector: <span class="text-danger">*</span></label>
 				                            <div class="col-12">
@@ -56,7 +56,7 @@
 				                            </div>
 				                        </div>
 	                    			</div>
-	                    			<div class="col-md-4 col-12">
+	                    			<div class="col-md-4 col-12" id="police_sub_sector">
 	                    				<div class="form-group row">
 				                            <label class="col-12" for="example-autocomplete1">Police Payment Sub Sector: <span class="text-danger">*</span></label>
 				                            <div class="col-12">
@@ -105,22 +105,33 @@
 @section('script')
 <script type="text/javascript">
 	function getPolicePaymentMain(){
+		// alert('hi');
 	    let id = $("#expense_cat_id").val();
 	    let url = '/admin/police-payment/'+id;
-	    $.ajax({
-	        type: "get",
-	        url: url,
-	        dataType: "json",
-	        success: function (response) {
-	            let html = '';
-	            html+='<option>'+'Please select'+'</option>'
-	            // console.log(response)
-	            response.forEach(element => {
-	                html+='<option value='+element.id+'>'+element.sector_name+'</option>'
-	            });
-	            $("#police_payment_main_id").html(html);
-	        }
-	    });
+	    if (id >= 2){
+	    	$("#zone").hide();
+	    	$("#police_main_sector").hide();
+	    	$("#police_sub_sector").hide();
+	    }else{
+	    	$("#zone").show();
+	    	$("#police_main_sector").show();
+	    	$("#police_sub_sector").show();
+
+	 		$.ajax({
+		        type: "get",
+		        url: url,
+		        dataType: "json",
+		        success: function (response) {
+		            let html = '';
+		            html+='<option>'+'Please select'+'</option>'
+		            // console.log(response)
+		            response.forEach(element => {
+		                html+='<option value='+element.id+'>'+element.sector_name+'</option>'
+		            });
+		            $("#police_payment_main_id").html(html);
+		        }
+		    });
+	    }   	
 	}
 </script>
 
