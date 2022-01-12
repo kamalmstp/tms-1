@@ -25,8 +25,8 @@ class BusRequest extends FormRequest
     {
         return [
             'bus_code'   => 'required|unique:buses,bus_code,'.$this->id,
-            'bus_owner_name' => 'required',
-            'phone' => 'required|numeric|min:11'
+            // 'bus_owner_name' => 'required',
+            // 'phone' => 'numeric|min:11'
         ];
     }
 }
